@@ -33,6 +33,11 @@
       <h1 id="title">Data for crimes in UK</h1>
       <h2>Select month:</h2>
       <select id="selDataset" onchange="optionChanged(this.value)"></select>
+      <h2>Crimes Per Month</h2>
+      <figure class="highcharts-figure">
+          <div id="crimeOverTimeContainer"></div>
+      </figure>
+      <div id="bar"></div>
       
     </section>
     <!-- map div -->
@@ -41,6 +46,7 @@
     </section>
 
     <!-- JavaScript file -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script type="text/javascript" src="static/data/2022-10.json"></script>
     <script type="text/javascript" src="static/data/2022-11.json"></script>
     <script type="text/javascript" src="static/data/2022-12.json"></script>
