@@ -29,3 +29,15 @@ h1 {
   /* Don't show horizontal scrollbar. */
   overflow-x: hidden;
 }
+#loadingBar {
+  display: none;
+  visibility: hidden;
+
+  height: 10vh;
+  width: 20vh;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
