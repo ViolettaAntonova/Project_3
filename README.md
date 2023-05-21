@@ -14,7 +14,7 @@
   - [styles file](static/css/style.css)
   - [main code file](static/js/plots.js)
   - python files
-    - [mongo.db](python/Crime_in_Uk.ipynb)
+    - [mongo.db](python/Crime_in_UK.ipynb)
     - [extricting data with API](python/extracting_data.ipynb)
   - Data files
     - [data files](static/data)
