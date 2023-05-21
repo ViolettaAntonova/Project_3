@@ -11,9 +11,11 @@
 
 # Files
   - [index](index.html)
-  - [mongo.db](Crime in Uk.ipynb)
   - [styles file](static/css/style.css)
   - [main code file](static/js/plots.js)
+  - python files
+    - [mongo.db](python/Crime_in_Uk.ipynb)
+    - [extricting data with API](extracting_data.ipynb)
   - Data files
     - [data files](static/data)
 
