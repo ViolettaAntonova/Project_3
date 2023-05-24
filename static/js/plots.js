@@ -22,6 +22,7 @@ function mapping(data) {
   // Loop through the data.
   let bar_labels = []
   let bar_data = []
+  let outcome_data =[]
   for (let i = 0; i < data.length; i++) {
     // Add a new marker to the cluster group, and bind a popup.
     markers.addLayer(L.marker([data[i].location.latitude, data[i].location.longitude])
@@ -29,6 +30,8 @@ function mapping(data) {
 
     //console.log(data[i].category)
     bar_labels.push(data[i].category)
+    outcome_data.push(data[i].outcome_status)
+
   };
   myMap.addLayer(markers);
   console.log(bar_labels)
@@ -46,14 +49,99 @@ function mapping(data) {
 
   console.log(bar_data);
 
+  // Sort into descending order
+  //1) combine the arrays:
+  var list = [];
+  for (var j = 0; j < bar_data.length; j++) 
+    list.push({'data': bar_data[j], 'category': uniquebarlabels[j]});
+
+  //2) sort:
+  list.sort(function(a, b) {
+    return ((a.data > b.data) ? -1 : ((a.data == b.data) ? 0 : 1));
+    //Sort could be modified to, for example, sort on the age 
+    // if the name is the same. See Bonus section below
+  });
+
+  //3) separate them back out:
+  for (var k = 0; k < list.length; k++) {
+    bar_data[k] = list[k].data;
+    uniquebarlabels[k] = list[k].category;
+  }
   var bar_graph_data = [
   {
     x: uniquebarlabels,
     y: bar_data,
-    type: 'bar'
+    type: 'bar',
   }];
 
-  Plotly.newPlot('bar', bar_graph_data);
+  var layout = {
+    title: {
+      display: true,
+      text: "Crimes per month",
+    }
+  }
+
+  Plotly.newPlot('bar', bar_graph_data, layout);
+
+ // working to pull outcome status categories for the pie chart
+
+  var res_outcomes = outcome_data.filter(elements => {
+  return elements !== null;
+ });
+ 
+ //console.log(res_outcomes)
+ 
+ let outcome_categories = []
+ 
+ for (let i = 0; i < res_outcomes.length; i++) {
+ 
+     outcome_categories.push(res_outcomes[i].category)
+   };
+ 
+ console.log(outcome_categories)
+ 
+   let uniqueoutcomecat = [...new Set(outcome_categories)];
+   console.log(uniqueoutcomecat)
+ 
+ let outcome_cat_data = []
+ 
+   for (let i = 0; i < uniqueoutcomecat.length; i++) {
+     outcome_cat_data.push(elementCount(outcome_categories, uniqueoutcomecat[i]))
+   }; 
+ 
+ console.log(outcome_cat_data)
+ 
+ //1) combine the arrays:
+ var list = [];
+ for (var j = 0; j < outcome_cat_data.length; j++) 
+     list.push({'pie_data': outcome_cat_data[j], 'pie_category': uniqueoutcomecat[j]});
+ 
+ //2) sort:
+ list.sort(function(a, b) {
+     return ((a.pie_data > b.pie_data) ? -1 : ((a.pie_data == b.pie_data) ? 0 : 1));
+     
+ });
+ 
+ //3) separate them back out:
+ for (var k = 0; k < list.length; k++) {
+     outcome_cat_data[k] = list[k].pie_data;
+     uniqueoutcomecat[k] = list[k].pie_category;
+ }
+ 
+ 
+ var pie_data = [{
+   values: outcome_cat_data,
+   labels: uniqueoutcomecat,
+   type: 'pie'
+ }];
+ 
+ var layout = {
+  title: {
+    display: true,
+    text: "Crimes outcomes per month",
+  }
+}
+ Plotly.newPlot('pie', pie_data, layout)
 }
 
 // Add our marker cluster layer to the map.
@@ -90,6 +178,36 @@ function Init() {
   //let feb_Data = feb_2023;
 
   mapping(mar_2023);
+  function lenarr(y) {
+    let cou = 0;
+    for (var i in y) {cou++;}
+    return(cou);
+  }
+  var data = [
+    ["jan", lenarr(jan_2023), lenarr(jan_2022)],
+    ["feb", lenarr(feb_2023), lenarr(feb_2022)],
+    ["mar", lenarr(mar_2023), lenarr(mar_2022)]
+  ];
+  console.log(data[0]);
+  // create the chart
+  var dataSet = anychart.data.set(data);
+  var firstSeriesData = dataSet.mapAs({x: 0, value: 1});
+  var secondSeriesData = dataSet.mapAs({x: 0, value: 2});
+  var chart = anychart.line()
+  var firstSeries = chart.line(firstSeriesData);
+  firstSeries.name("2023");
+  var secondSeries = chart.line(secondSeriesData);
+  secondSeries.name("2022");
+  // set the chart title
+  chart.title("Crime level");
+  chart.legend().enabled(true);
+  firstSeries.hovered().markers().type("circle").size(4);
+  chart.yAxis().title("Crime count per month");
+  chart.xAxis().title("Month");
+
+  // display the chart in the container
+  chart.container('container');
+  chart.draw();
 }
 //initialize function
 Init();
