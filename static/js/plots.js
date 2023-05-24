@@ -1,4 +1,6 @@
+//all plots depending on drop down menu
 function mapping(data) {
+  //checking if map is already initialized
   var container = L.DomUtil.get('map'); 
   if(container != null){ 
     container._leaflet_id = null; 
@@ -9,8 +11,6 @@ function mapping(data) {
     center: [52.489471, -1.898575],
     zoom: 11
   });
-
-  //myMap.removeLayer(markers);
 
   // Adding the tile layer
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -34,7 +34,6 @@ function mapping(data) {
 
   };
   myMap.addLayer(markers);
-  console.log(bar_labels)
 
   let uniquebarlabels = [...new Set(bar_labels)];
   console.log(uniquebarlabels)
@@ -67,6 +66,7 @@ function mapping(data) {
     bar_data[k] = list[k].data;
     uniquebarlabels[k] = list[k].category;
   }
+  //bar chart
   var bar_graph_data = [
   {
     x: uniquebarlabels,
@@ -84,21 +84,15 @@ function mapping(data) {
   Plotly.newPlot('bar', bar_graph_data, layout);
 
  // working to pull outcome status categories for the pie chart
-
   var res_outcomes = outcome_data.filter(elements => {
   return elements !== null;
  });
  
- //console.log(res_outcomes)
- 
  let outcome_categories = []
  
  for (let i = 0; i < res_outcomes.length; i++) {
- 
      outcome_categories.push(res_outcomes[i].category)
    };
- 
- console.log(outcome_categories)
  
    let uniqueoutcomecat = [...new Set(outcome_categories)];
    console.log(uniqueoutcomecat)
@@ -108,8 +102,6 @@ function mapping(data) {
    for (let i = 0; i < uniqueoutcomecat.length; i++) {
      outcome_cat_data.push(elementCount(outcome_categories, uniqueoutcomecat[i]))
    }; 
- 
- console.log(outcome_cat_data)
  
  //1) combine the arrays:
  var list = [];
@@ -128,7 +120,7 @@ function mapping(data) {
      uniqueoutcomecat[k] = list[k].pie_category;
  }
  
- 
+ //pie chart
  var pie_data = [{
    values: outcome_cat_data,
    labels: uniqueoutcomecat,
@@ -144,8 +136,6 @@ function mapping(data) {
  Plotly.newPlot('pie', pie_data, layout)
 }
 
-// Add our marker cluster layer to the map.
-//myMap.addLayer(markers);
 //change charts function
 function optionChanged(value) {
   if (value == 'mar_2023') {newValue = mar_2023;
@@ -155,7 +145,6 @@ function optionChanged(value) {
   } else if (value == 'nov_2022') {newValue = nov_2022;
   } else {newValue = oct_2022;
   }
-
   mapping(newValue);
 }
 
@@ -172,24 +161,20 @@ function Init() {
     let sampleId = sampleNames[i];
     selector.append('option').text(sampleId);
   };
-
-  //first value to charts
-  //let march_Data = mar_2023;
-  //let feb_Data = feb_2023;
-
+  //counthing lenght of jason file
   mapping(mar_2023);
   function lenarr(y) {
     let cou = 0;
     for (var i in y) {cou++;}
     return(cou);
   }
+  //array for line chart
   var data = [
     ["jan", lenarr(jan_2023), lenarr(jan_2022)],
     ["feb", lenarr(feb_2023), lenarr(feb_2022)],
     ["mar", lenarr(mar_2023), lenarr(mar_2022)]
   ];
-  console.log(data[0]);
-  // create the chart
+  // create the line chart
   var dataSet = anychart.data.set(data);
   var firstSeriesData = dataSet.mapAs({x: 0, value: 1});
   var secondSeriesData = dataSet.mapAs({x: 0, value: 2});
