@@ -58,7 +58,7 @@ As we all live there or travel very often for various reasons we decided it’s 
 
 ## Charts that could be seen in host:
 
-First thing what have been done was preparing map with all crimes based on attitudes and longitudes. Second was to prepare drop down menu, that contains last 6 available months on police API. After that we connected drop down to map and all the rest charts. (And faces issue «map is already initialized». Thanks to stack overflow for helping solve that case). Also I’ve included line chart that represents to us crime level in jan, feb and mar in 2022 and 2023. Based on chart we could say that crime level has trend, but to make more accurate conclusion we need more data.
+First thing what have been done was preparing map with all crimes based on latitudes and longitudes. Second was to prepare drop down menu, that contains last 6 available months on police API. After that we connected drop down to map and all the rest charts. Also I’ve included line chart that represents to us crime level in January, Rebruary and March in years 2022 and 2023. Based on chart we could say that crime level has trend, but to make more accurate conclusion we need look at larger data set.
 
 To make the bar chart I had to pull data on ‘category’. It became a little tricky trying to code into descending order, otherwise there were no major issues.
 From the data, we can see the largest category of crime is ‘violent crime’ followed by ‘vehicle crime’ over the 6-month period. The only significant variation seen is that ‘other theft’ has a higher number than ‘vehicle crime’ in Oct and Nov 2022. The website did not specify in further detail what other theft encompasses, which does add limitations to gauging a full picture of crime committed within the city centre. However, overall the statistics do give a good starting point for further investigation.
@@ -70,9 +70,9 @@ As this is publicly available data, we could apply this model to other city cent
 
 ## Why and how could use the data:
 
- - People relocating as the crime rate is so high in Birmingham some people have relocated to other places and cities where it is a safer environment for them and their families.
- - Investors and Business owners – Anyone who will want to setup a business and or invest into a other company they will definitely look into the area or city where they are gping to invest. They would not want to invest anywhere where the crime rates are high or any potential harm to the business.
-  - Insurance companies – Insurance companies look a lot into areas where there is a high crime rate. For eg. Car insurances are very high in bigger cities such as London and Birmingham comparatively than somewhere like Devon where the Insurance is very low as lower crime rate. House insurances also have a lot to say depending on the area we live in and what the crime rate.
+ - People relocating: as the crime rate is so high in Birmingham some people have relocated to other places and cities where it is a safer environment for them and their families.
+ - Investors and Business owners: anyone who will want to setup a business and or invest into a other company they will definitely look into the area or city where they are going to invest. They would not want to invest anywhere where the crime rates are high or any potential harm to the business.
+  - Insurance companies: insurance companies look a lot into areas where there is a high crime rate. For eg. Car insurances are very high in bigger cities such as London and Birmingham comparatively than somewhere like Devon where the Insurance is very low as lower crime rate. House insurances also have a lot to say depending on the area we live in and what the crime rate.
 
 ## Next steps:
 
@@ -89,4 +89,6 @@ The stability in reported hate crimes suggests that ongoing efforts to address t
 
 It is crucial to interpret these statistics with caution, considering that various factors influence crime rates. 
 
+Law enforcement agencies, community organizations, and the general public should continue working together to maintain public safety and support initiatives aimed at reducing crime in Birmingham.
 
+Disclamer: The street-level crimes returned in the API are only an approximation of where the actual crimes occurred, they are not the exact locations.
